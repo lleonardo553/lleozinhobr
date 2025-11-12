@@ -3,130 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Central do lleozinho</title>
+<title>login lleozinho</title>
 <style>
   body {
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #6a11cb, #2575fc);
-    margin: 0;
-    padding: 0;
     color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
   }
 
-  .central-container {
+  .login-container {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    border-radius: 15px;
     text-align: center;
-    padding: 50px 20px;
+    width: 300px;
+    position: relative;
   }
 
-  h1 {
-    font-size: 3em;
-    margin-bottom: 10px;
-  }
+  h2 { margin-bottom: 20px; }
 
-  h3 {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-    font-weight: normal;
+  input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
   }
 
   button {
-    padding: 12px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 10px;
     background: #00c3ff;
-    color: #fff;
-    font-size: 1em;
+    border: none;
+    padding: 10px 15px;
+    color: white;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
+    width: 100%;
   }
 
   button:hover { background: #0078ff; }
 
-  /* Popup Menu */
-  .popup-menu {
+  .mensagem {
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  .popup {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #0d1117;
-    padding: 30px 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.6);
-    display: none;
-    z-index: 1000;
-    text-align: center;
-  }
-
-  .popup-menu h2 {
-    margin-bottom: 20px;
     color: #00ff88;
-  }
-
-  .popup-menu button {
-    display: block;
-    width: 250px;
-    margin: 8px auto;
-  }
-
-  .close-btn {
-    margin-top: 20px;
-    background: #ff5555;
-  }
-
-  /* Overlay */
-  .overlay {
-    position: fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background: rgba(0,0,0,0.6);
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
     display: none;
-    z-index: 500;
+    font-weight: bold;
+    z-index: 1000;
+  }
+
+  iframe {
+    width: 100%;
+    height: 100vh;
+    border: none;
+    display: none;
   }
 </style>
 </head>
 <body>
 
-<div class="central-container">
-  <h1>Central</h1>
-  <h3>Seja bem-vindo à central do lleozinho</h3>
-
-  <button onclick="window.open('https://leozinho.erby.site/', '_blank')">Acessar Loja</button>
-  <button onclick="abrirPopup()">Projetos</button>
+<div class="login-container" id="login-box">
+  <h2>login lleozinho</h2>
+  <input type="text" id="usuario" placeholder="Usuário">
+  <input type="password" id="senha" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <div class="mensagem" id="mensagem"></div>
 </div>
 
-<div class="overlay" id="overlay"></div>
+<div class="popup" id="popup">Logando no usuário, por favor aguarde...</div>
 
-<div class="popup-menu" id="popupMenu">
-  <h2>Projetos</h2>
-  <button onclick="window.open('https://sites.google.com/view/gamesoft-downloadd/app-para-pc-da-escola/leia-sp', '_blank')">Leia SP</button>
-  <button onclick="window.open('https://darkmodde.xyz/CMSP-Hacks', '_blank')">Site Oficial (Darkmod)</button>
-  <button onclick="window.open('https://obatataokkjj.github.io/Batata-Scripts/', '_blank')">Site Oficial (Obatataokkjj)</button>
-  <button onclick="window.open('https://1lusa0.github.io/SalaDoFuturo-Plataformas-Hacks/', '_blank')">Site Oficial (1lusa0)</button>
-  <button onclick="window.open('https://cmsptoolssite.netlify.app/', '_blank')">Site Oficial (CMSPToolsSite)</button>
-  <button onclick="window.open('https://matific.cupiditys.lol/dashboard', '_blank')">Matific</button>
-  <button onclick="window.open('https://redacao.cupiditys.lol/', '_blank')">Redação SP</button>
-  <button onclick="window.open('https://crimsonstrauss.xyz/alura', '_blank')">Alura</button>
-  <button onclick="window.open('https://speakify.cupiditys.lol/', '_blank')">Speakify v2</button>
-  <button onclick="window.open('https://taskitos.cupiditys.lol/', '_blank')">Taskitos</button>
-  <button class="close-btn" onclick="fecharPopup()">Fechar</button>
-</div>
+<iframe id="siteFrame" src="https://leozinhocentral.netlify.app/"></iframe>
 
 <script>
-function abrirPopup() {
-  document.getElementById('popupMenu').style.display = 'block';
-  document.getElementById('overlay').style.display = 'block';
+// Função para remover acentos e comparar lowercase
+function removerAcentos(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-function fecharPopup() {
-  document.getElementById('popupMenu').style.display = 'none';
-  document.getElementById('overlay').style.display = 'none';
+async function login() {
+  const usuarioInput = document.getElementById("usuario").value.trim();
+  const senhaInput = document.getElementById("senha").value.trim();
+  const msg = document.getElementById("mensagem");
+
+  try {
+    const resposta = await fetch("https://raw.githubusercontent.com/lleonardo553/banco-de-dados/refs/heads/main/usuarios.json");
+    const data = await resposta.json();
+
+    const usuarioEncontrado = data.usuarios.find(u =>
+      removerAcentos(u.nome) === removerAcentos(usuarioInput) &&
+      u.senha === senhaInput
+    );
+
+    if (usuarioEncontrado) {
+      const popup = document.getElementById("popup");
+      popup.style.display = "block";
+      msg.textContent = "";
+
+      setTimeout(() => {
+        popup.style.display = "none";
+        document.getElementById("login-box").style.display = "none";
+        document.getElementById("siteFrame").style.display = "block"; // mostra o iframe
+      }, 2000); // 2 segundos de popup
+    } else {
+      msg.style.color = "#ff5555";
+      msg.textContent = "Usuário ou senha incorretos!";
+    }
+  } catch (erro) {
+    msg.style.color = "#ff5555";
+    msg.textContent = "Erro ao conectar ao banco de dados!";
+    console.error("Erro ao conectar:", erro);
+  }
 }
 
-// Fechar popup clicando no overlay
-document.getElementById('overlay').addEventListener('click', fecharPopup);
+// Enter também faz login
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") login();
+});
 </script>
 
 </body>
