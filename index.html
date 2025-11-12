@@ -22,7 +22,6 @@
     border-radius: 15px;
     text-align: center;
     width: 300px;
-    position: relative;
   }
 
   h2 { margin-bottom: 20px; }
@@ -96,38 +95,38 @@ function removerAcentos(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-async function login() {
+// JSON local com usuários
+const usuariosData = {
+  "usuarios": [
+    { "id": 1, "nome": "leo", "senha": "301011" },
+    { "id": 2, "nome": "uryel", "senha": "uryel123" },
+    { "id": 3, "nome": "davi", "senha": "davi123" }
+  ]
+};
+
+function login() {
   const usuarioInput = document.getElementById("usuario").value.trim();
   const senhaInput = document.getElementById("senha").value.trim();
   const msg = document.getElementById("mensagem");
 
-  try {
-    const resposta = await fetch("https://raw.githubusercontent.com/lleonardo553/banco-de-dados/refs/heads/main/usuarios.json");
-    const data = await resposta.json();
+  const usuarioEncontrado = usuariosData.usuarios.find(u =>
+    removerAcentos(u.nome) === removerAcentos(usuarioInput) &&
+    u.senha === senhaInput
+  );
 
-    const usuarioEncontrado = data.usuarios.find(u =>
-      removerAcentos(u.nome) === removerAcentos(usuarioInput) &&
-      u.senha === senhaInput
-    );
+  if (usuarioEncontrado) {
+    const popup = document.getElementById("popup");
+    popup.style.display = "block";
+    msg.textContent = "";
 
-    if (usuarioEncontrado) {
-      const popup = document.getElementById("popup");
-      popup.style.display = "block";
-      msg.textContent = "";
-
-      setTimeout(() => {
-        popup.style.display = "none";
-        document.getElementById("login-box").style.display = "none";
-        document.getElementById("siteFrame").style.display = "block"; // mostra o iframe
-      }, 2000); // 2 segundos de popup
-    } else {
-      msg.style.color = "#ff5555";
-      msg.textContent = "Usuário ou senha incorretos!";
-    }
-  } catch (erro) {
+    setTimeout(() => {
+      popup.style.display = "none";
+      document.getElementById("login-box").style.display = "none";
+      document.getElementById("siteFrame").style.display = "block"; // mostra o iframe
+    }, 2000);
+  } else {
     msg.style.color = "#ff5555";
-    msg.textContent = "Erro ao conectar ao banco de dados!";
-    console.error("Erro ao conectar:", erro);
+    msg.textContent = "Usuário ou senha incorretos!";
   }
 }
 
