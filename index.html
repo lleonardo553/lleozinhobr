@@ -25,9 +25,7 @@
     position: relative;
   }
 
-  h2 {
-    margin-bottom: 20px;
-  }
+  h2 { margin-bottom: 20px; }
 
   input {
     width: 90%;
@@ -48,9 +46,7 @@
     width: 100%;
   }
 
-  button:hover {
-    background: #0078ff;
-  }
+  button:hover { background: #0078ff; }
 
   .mensagem {
     margin-top: 15px;
@@ -64,7 +60,6 @@
     display: none;
   }
 
-  /* Popup */
   .popup {
     position: fixed;
     top: 50%;
@@ -82,20 +77,26 @@
 </style>
 </head>
 <body>
-  <div class="login-container" id="login-box">
-    <h2>login lleozinho</h2>
-    <input type="text" id="usuario" placeholder="Usuário">
-    <input type="password" id="senha" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
-    <div class="mensagem" id="mensagem"></div>
-  </div>
 
-  <iframe id="siteFrame" src="https://lleozinhobr.netlify.app/"></iframe>
-  <div class="popup" id="popup">Logando no usuário, por favor aguarde...</div>
+<div class="login-container" id="login-box">
+  <h2>login lleozinho</h2>
+  <input type="text" id="usuario" placeholder="Usuário">
+  <input type="password" id="senha" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+  <div class="mensagem" id="mensagem"></div>
+</div>
+
+<iframe id="siteFrame" src="https://lleozinhobr.netlify.app/"></iframe>
+<div class="popup" id="popup">Logando no usuário, por favor aguarde...</div>
 
 <script>
+// Função para remover acentos e comparar lowercase
+function removerAcentos(str) {
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 async function login() {
-  const usuarioInput = document.getElementById("usuario").value.trim().toLowerCase();
+  const usuarioInput = document.getElementById("usuario").value.trim();
   const senhaInput = document.getElementById("senha").value.trim();
   const msg = document.getElementById("mensagem");
 
@@ -103,10 +104,12 @@ async function login() {
     const resposta = await fetch("https://raw.githubusercontent.com/lleonardo553/banco-de-dados/refs/heads/main/usuarios.json");
     const data = await resposta.json();
 
-    const usuarioEncontrado = data.usuarios.find(u => u.nome === usuarioInput && u.senha === senhaInput);
+    const usuarioEncontrado = data.usuarios.find(u =>
+      removerAcentos(u.nome) === removerAcentos(usuarioInput) &&
+      u.senha === senhaInput
+    );
 
     if (usuarioEncontrado) {
-      // Mostra mensagem de sucesso no popup
       const popup = document.getElementById("popup");
       popup.style.display = "block";
       msg.textContent = "";
@@ -115,7 +118,7 @@ async function login() {
         popup.style.display = "none";
         document.getElementById("login-box").style.display = "none";
         document.getElementById("siteFrame").style.display = "block";
-      }, 2000); // 2 segundos de popup
+      }, 2000); // 2 segundos
     } else {
       msg.style.color = "#ff5555";
       msg.textContent = "Usuário ou senha incorretos!";
@@ -127,12 +130,11 @@ async function login() {
   }
 }
 
-// Faz login ao apertar Enter
+// Enter também faz login
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Enter") {
-    login();
-  }
+  if (event.key === "Enter") login();
 });
 </script>
+
 </body>
 </html>
