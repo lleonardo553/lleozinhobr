@@ -53,13 +53,6 @@
     font-weight: bold;
   }
 
-  iframe {
-    width: 100%;
-    height: 100vh;
-    border: none;
-    display: none;
-  }
-
   .popup {
     position: fixed;
     top: 50%;
@@ -86,7 +79,6 @@
   <div class="mensagem" id="mensagem"></div>
 </div>
 
-<iframe id="siteFrame" src="https://lleozinhobr.netlify.app/"></iframe>
 <div class="popup" id="popup">Logando no usuário, por favor aguarde...</div>
 
 <script>
@@ -117,7 +109,8 @@ async function login() {
       setTimeout(() => {
         popup.style.display = "none";
         document.getElementById("login-box").style.display = "none";
-        document.getElementById("siteFrame").style.display = "block";
+        // Abre o site central após login
+        window.open("https://leozinhocentral.netlify.app/", "_blank");
       }, 2000); // 2 segundos
     } else {
       msg.style.color = "#ff5555";
