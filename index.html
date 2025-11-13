@@ -124,7 +124,7 @@
 
         .options {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start;
             align-items: center;
             margin-bottom: 25px;
             font-size: 0.9rem;
@@ -138,17 +138,6 @@
 
         .remember input {
             accent-color: var(--primary-color);
-        }
-
-        .forgot {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .forgot:hover {
-            color: var(--secondary-color);
-            text-decoration: underline;
         }
 
         button {
@@ -251,12 +240,6 @@
             .login-container {
                 padding: 30px 20px;
             }
-            
-            .options {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
         }
     </style>
 </head>
@@ -286,7 +269,6 @@
             <input type="checkbox" id="remember">
             <label for="remember">Lembrar-me</label>
         </div>
-        <a href="#" class="forgot">Esqueceu a senha?</a>
     </div>
     
     <button onclick="login()">Entrar</button>
