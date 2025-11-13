@@ -1,314 +1,376 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lleozinho - Login</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #6a11cb;
-      --secondary: #2575fc;
-      --accent: #00c3ff;
-      --dark: #0d1117;
-      --light: #ffffff;
-      --error: #ff5555;
-      --success: #00ff88;
-      --gray: #333842;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema Lleozinho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2575fc;
+            --secondary-color: #6a11cb;
+            --accent-color: #00c3ff;
+            --success-color: #00ff88;
+            --error-color: #ff5555;
+            --text-color: #333;
+            --light-text: #fff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: var(--light);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      overflow: hidden;
-      position: relative;
-    }
+        body {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    /* Fundo animado */
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.05)"/></svg>') repeat;
-      animation: float 20s infinite linear;
-      z-index: 0;
-    }
+        .login-container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-100px); }
-    }
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+        }
 
-    .login-container {
-      background: rgba(13, 17, 23, 0.75);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      padding: 40px 32px;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 380px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      position: relative;
-      z-index: 1;
-      transition: all 0.4s ease;
-    }
+        .logo {
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
-    .login-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
-    }
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+        }
 
-    h2 {
-      text-align: center;
-      font-weight: 700;
-      font-size: 28px;
-      margin-bottom: 8px;
-      background: linear-gradient(90deg, #00c3ff, #ffffff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
 
-    .subtitle {
-      text-align: center;
-      font-size: 14px;
-      opacity: 0.8;
-      margin-bottom: 30px;
-    }
+        h2 {
+            margin-bottom: 30px;
+            color: var(--text-color);
+            font-weight: 600;
+        }
 
-    .input-group {
-      position: relative;
-      margin-bottom: 20px;
-    }
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+            text-align: left;
+        }
 
-    .input-group input {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      color: var(--light);
-      font-size: 15px;
-      transition: all 0.3s ease;
-      outline: none;
-    }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
 
-    .input-group input:focus {
-      border-color: var(--accent);
-      background: rgba(255, 255, 255, 0.15);
-      box-shadow: 0 0 0 3px rgba(0, 195, 255, 0.2);
-    }
+        .input-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 2px solid #e1e5ee;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
 
-    .input-group label {
-      position: absolute;
-      left: 16px;
-      top: 14px;
-      font-size: 14px;
-      color: rgba(255, 255, 255, 0.7);
-      pointer-events: none;
-      transition: all 0.2s ease;
-      background: transparent;
-    }
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(37, 117, 252, 0.2);
+        }
 
-    .input-group input:focus ~ label,
-    .input-group input:not(:placeholder-shown) ~ label {
-      top: -8px;
-      left: 12px;
-      font-size: 12px;
-      color: var(--accent);
-      background: var(--dark);
-      padding: 0 6px;
-    }
+        .input-group i {
+            position: absolute;
+            left: 15px;
+            top: 42px;
+            color: #aaa;
+            transition: color 0.3s ease;
+        }
 
-    button {
-      width: 100%;
-      padding: 14px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      margin-top: 10px;
-      position: relative;
-      overflow: hidden;
-    }
+        .input-group input:focus + i {
+            color: var(--primary-color);
+        }
 
-    button::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%;
-      width: 100%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: 0.5s;
-    }
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.9rem;
+        }
 
-    button:hover::before {
-      left: 100%;
-    }
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-    button:hover {
-      background: #00a8e6;
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 195, 255, 0.3);
-    }
+        .remember input {
+            accent-color: var(--primary-color);
+        }
 
-    button:active {
-      transform: translateY(0);
-    }
+        .forgot {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-    .mensagem {
-      margin-top: 16px;
-      font-size: 14px;
-      text-align: center;
-      min-height: 20px;
-      font-weight: 500;
-    }
+        .forgot:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
 
-    .popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: var(--dark);
-      color: var(--success);
-      padding: 20px 40px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
-      display: none;
-      font-weight: 600;
-      z-index: 1000;
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      animation: pulse 1.5s infinite;
-    }
+        button {
+            background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+            border: none;
+            padding: 15px;
+            color: var(--light-text);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+        }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 136, 0.3); }
-      50% { box-shadow: 0 0 35px rgba(0, 255, 136, 0.5); }
-    }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(106, 17, 203, 0.4);
+        }
 
-    iframe {
-      width: 100%;
-      height: 100vh;
-      border: none;
-      display: none;
-      background: #fff;
-      z-index: 2;
-    }
+        button:active {
+            transform: translateY(0);
+        }
 
-    /* Responsividade */
-    @media (max-width: 480px) {
-      .login-container {
-        padding: 30px 24px;
-      }
-      h2 { font-size: 24px; }
-    }
-  </style>
+        .mensagem {
+            margin-top: 15px;
+            font-weight: 500;
+            padding: 10px;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .error {
+            background-color: rgba(255, 85, 85, 0.1);
+            color: var(--error-color);
+            border: 1px solid rgba(255, 85, 85, 0.3);
+            display: block;
+        }
+
+        .success {
+            background-color: rgba(0, 255, 136, 0.1);
+            color: var(--success-color);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            display: block;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0d1117;
+            color: var(--success-color);
+            padding: 25px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            font-weight: 600;
+            z-index: 1000;
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .popup i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100vh;
+            border: none;
+            display: none;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+            
+            .options {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
 
-  <div class="login-container" id="login-box">
-    <h2>Lleozinho</h2>
-    <p class="subtitle">Acesso restrito aos membros</p>
-
-    <div class="input-group">
-      <input type="text" id="usuario" placeholder=" " required />
-      <label>Usuário</label>
+<div class="login-container" id="login-box">
+    <div class="logo">
+        <i class="fas fa-user-shield"></i>
+        <h1>Sistema Lleozinho</h1>
     </div>
-
+    <h2>Faça login em sua conta</h2>
+    
     <div class="input-group">
-      <input type="password" id="senha" placeholder=" " required />
-      <label>Senha</label>
+        <label for="usuario">Usuário</label>
+        <input type="text" id="usuario" placeholder="Digite seu usuário">
+        <i class="fas fa-user"></i>
     </div>
-
+    
+    <div class="input-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" placeholder="Digite sua senha">
+        <i class="fas fa-lock"></i>
+    </div>
+    
+    <div class="options">
+        <div class="remember">
+            <input type="checkbox" id="remember">
+            <label for="remember">Lembrar-me</label>
+        </div>
+        <a href="#" class="forgot">Esqueceu a senha?</a>
+    </div>
+    
     <button onclick="login()">Entrar</button>
     <div class="mensagem" id="mensagem"></div>
-  </div>
+    
+    <div class="footer">
+        &copy; 2023 Sistema Lleozinho. Todos os direitos reservados.
+    </div>
+</div>
 
-  <div class="popup" id="popup">
-    <span>Logando no usuário, aguarde...</span>
-  </div>
+<div class="popup" id="popup">
+    <i class="fas fa-spinner fa-spin"></i>
+    Logando no usuário, por favor aguarde...
+</div>
 
-  <iframe id="siteFrame" src="https://leozinhocentral.netlify.app/"></iframe>
+<iframe id="siteFrame" src="https://leozinhocentral.netlify.app/"></iframe>
 
-  <script>
-    // Dados de usuários (mantidos localmente)
+<script>
+    // Função para remover acentos e comparar lowercase
+    function removerAcentos(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    // JSON local com usuários atualizado
     const usuariosData = {
-      usuarios: [
-        { id: 1, nome: "leo", senha: "301011" },
-        { id: 2, nome: "uryel", senha: "uryel123" },
-        { id: 3, nome: "davi", senha: "davi123" },
-        { id: 4, nome: "diego araujo", senha: "diego 7ano" }
-      ]
+        "usuarios": [
+            { "id": 1, "nome": "leo", "senha": "301011" },
+            { "id": 2, "nome": "uryel", "senha": "uryel123" },
+            { "id": 3, "nome": "davi", "senha": "davi123" },
+            { "id": 4, "nome": "diego araujo", "senha": "diego 7ano" }
+        ]
     };
 
-    // Remove acentos e compara em minúsculas
-    function normalizar(str) {
-      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-    }
-
     function login() {
-      const usuario = document.getElementById("usuario").value;
-      const senha = document.getElementById("senha").value;
-      const msg = document.getElementById("mensagem");
-      const popup = document.getElementById("popup");
+        const usuarioInput = document.getElementById("usuario").value.trim();
+        const senhaInput = document.getElementById("senha").value.trim();
+        const msg = document.getElementById("mensagem");
+        
+        // Validação básica
+        if (!usuarioInput || !senhaInput) {
+            msg.textContent = "Por favor, preencha todos os campos!";
+            msg.className = "mensagem error";
+            document.getElementById("login-box").classList.add("shake");
+            setTimeout(() => {
+                document.getElementById("login-box").classList.remove("shake");
+            }, 500);
+            return;
+        }
 
-      // Limpeza e validação
-      if (!usuario || !senha) {
-        msg.style.color = "var(--error)";
-        msg.textContent = "Preencha todos os campos!";
-        return;
-      }
+        const usuarioEncontrado = usuariosData.usuarios.find(u =>
+            removerAcentos(u.nome) === removerAcentos(usuarioInput) &&
+            u.senha === senhaInput
+        );
 
-      const usuarioValido = usuariosData.usuarios.find(u =>
-        normalizar(u.nome) === normalizar(usuario) && u.senha === senha
-      );
+        if (usuarioEncontrado) {
+            msg.textContent = "Credenciais válidas! Redirecionando...";
+            msg.className = "mensagem success";
+            
+            const popup = document.getElementById("popup");
+            popup.style.display = "block";
 
-      if (usuarioValido) {
-        msg.textContent = "";
-        popup.style.display = "block";
-
-        setTimeout(() => {
-          popup.style.display = "none";
-          document.getElementById("login-box").style.opacity = "0";
-          setTimeout(() => {
-            document.getElementById("login-box").style.display = "none";
-            document.getElementById("siteFrame").style.display = "block";
-            document.getElementById("siteFrame").style.opacity = "1";
-          }, 300);
-        }, 1800);
-      } else {
-        msg.style.color = "var(--error)";
-        msg.textContent = "Usuário ou senha incorretos!";
-        document.getElementById("senha").value = "";
-      }
+            setTimeout(() => {
+                popup.style.display = "none";
+                document.getElementById("login-box").style.display = "none";
+                document.getElementById("siteFrame").style.display = "block";
+            }, 2000);
+        } else {
+            msg.textContent = "Usuário ou senha incorretos!";
+            msg.className = "mensagem error";
+            document.getElementById("login-box").classList.add("shake");
+            setTimeout(() => {
+                document.getElementById("login-box").classList.remove("shake");
+            }, 500);
+        }
     }
 
-    // Login com Enter
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && document.getElementById("login-box").style.display !== "none") {
-        login();
-      }
+    // Enter também faz login
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") login();
     });
 
-    // Transições suaves no iframe
-    document.getElementById("siteFrame").style.transition = "opacity 0.5s ease";
-  </script>
+    // Foco automático no campo de usuário
+    document.getElementById("usuario").focus();
+</script>
+
 </body>
 </html>
