@@ -3,53 +3,87 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>login lleozinho</title>
+<title>Login | lleozinho</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
-    color: #fff;
+    margin: 0;
+    height: 100vh;
+    font-family: "Poppins", sans-serif;
+    background: radial-gradient(circle at top, #4b6cb7, #182848);
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    margin: 0;
+    overflow: hidden;
   }
 
   .login-container {
-    background: rgba(0, 0, 0, 0.3);
-    padding: 30px;
-    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 40px 35px;
     text-align: center;
-    width: 300px;
+    width: 320px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
   }
 
-  h2 { margin-bottom: 20px; }
+  .login-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+  }
+
+  h2 {
+    margin-bottom: 25px;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
 
   input {
-    width: 90%;
-    padding: 10px;
+    width: 100%;
+    padding: 12px;
     margin: 8px 0;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 15px;
+    transition: background 0.3s;
+    outline: none;
+  }
+
+  input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  input:focus {
+    background: rgba(255, 255, 255, 0.25);
   }
 
   button {
-    background: #00c3ff;
+    background: linear-gradient(90deg, #00c3ff, #0078ff);
     border: none;
-    padding: 10px 15px;
-    color: white;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
     width: 100%;
+    padding: 12px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
   }
 
-  button:hover { background: #0078ff; }
+  button:hover {
+    background: linear-gradient(90deg, #0078ff, #00c3ff);
+    transform: scale(1.03);
+  }
 
   .mensagem {
     margin-top: 15px;
     font-weight: bold;
+    font-size: 14px;
+    height: 20px;
   }
 
   .popup {
@@ -59,12 +93,18 @@
     transform: translate(-50%, -50%);
     background: #0d1117;
     color: #00ff88;
-    padding: 20px 30px;
+    padding: 20px 35px;
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
     display: none;
     font-weight: bold;
     z-index: 1000;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translate(-50%, -55%); }
+    to { opacity: 1; transform: translate(-50%, -50%); }
   }
 
   iframe {
@@ -78,24 +118,22 @@
 <body>
 
 <div class="login-container" id="login-box">
-  <h2>login lleozinho</h2>
+  <h2>Login lleozinho</h2>
   <input type="text" id="usuario" placeholder="Usuário">
   <input type="password" id="senha" placeholder="Senha">
   <button onclick="login()">Entrar</button>
   <div class="mensagem" id="mensagem"></div>
 </div>
 
-<div class="popup" id="popup">Logando no usuário, por favor aguarde...</div>
+<div class="popup" id="popup">🔒 Logando no usuário, aguarde...</div>
 
 <iframe id="siteFrame" src="https://leozinhocentral.netlify.app/"></iframe>
 
 <script>
-// Função para remover acentos e comparar lowercase
 function removerAcentos(str) {
   return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-// JSON local com usuários atualizado
 const usuariosData = {
   "usuarios": [
     { "id": 1, "nome": "leo", "senha": "301011" },
@@ -109,6 +147,7 @@ function login() {
   const usuarioInput = document.getElementById("usuario").value.trim();
   const senhaInput = document.getElementById("senha").value.trim();
   const msg = document.getElementById("mensagem");
+  const popup = document.getElementById("popup");
 
   const usuarioEncontrado = usuariosData.usuarios.find(u =>
     removerAcentos(u.nome) === removerAcentos(usuarioInput) &&
@@ -116,22 +155,20 @@ function login() {
   );
 
   if (usuarioEncontrado) {
-    const popup = document.getElementById("popup");
-    popup.style.display = "block";
     msg.textContent = "";
+    popup.style.display = "block";
 
     setTimeout(() => {
       popup.style.display = "none";
       document.getElementById("login-box").style.display = "none";
-      document.getElementById("siteFrame").style.display = "block"; // mostra o iframe
+      document.getElementById("siteFrame").style.display = "block";
     }, 2000);
   } else {
-    msg.style.color = "#ff5555";
+    msg.style.color = "#ff4d4d";
     msg.textContent = "Usuário ou senha incorretos!";
   }
 }
 
-// Enter também faz login
 document.addEventListener("keydown", (event) => {
   if (event.key === "Enter") login();
 });
