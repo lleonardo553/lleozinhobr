@@ -768,23 +768,6 @@
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(-4px); }
     }
-    
-    .card--placeholder {
-      opacity: 0.7;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      border-style: dashed;
-      min-height: 380px;
-    }
-    
-    .card--placeholder .card__icon {
-      background: var(--color-bg-card);
-      color: var(--color-text-dim);
-      box-shadow: none;
-    }
-    
-    .card--placeholder .card__icon::after { display: none; }
 
     /* ============================
        💳 PIX & DONATIONS - Premium
@@ -1274,6 +1257,9 @@
           <button class="filter-btn" data-filter="otimizador">
             <i class="fas fa-tachometer-alt"></i> Otimizador
           </button>
+          <button class="filter-btn" data-filter="edicao">
+            <i class="fas fa-film"></i> Edição
+          </button>
         </div>
         
         <div class="cards-grid" id="cardsGrid">
@@ -1306,18 +1292,32 @@
             </div>
           </article>
           
-          <!-- Card Placeholder -->
-          <article class="card card--placeholder animate-on-scroll" data-category="otimizador">
+          <!-- Card: CapCut sem Bloqueio -->
+          <article class="card animate-on-scroll" data-category="edicao">
+            <div class="card__badge">🎬 NOVO</div>
             <div class="card__icon floating-delay">
-              <i class="fas fa-plus"></i>
+              <i class="fas fa-video"></i>
             </div>
-            <h3 class="card__title">Em breve...</h3>
+            <h3 class="card__title">CapCut sem Bloqueio</h3>
             <p class="card__description">
-              Novas ferramentas de otimização, overlays para streaming 
-              e recursos exclusivos estão a caminho.
+              Versão desbloqueada do CapCut para edição de vídeos sem restrições. 
+              Perfeito para criar clipes incríveis com recursos premium liberados.
             </p>
-            <div class="btn btn--outline" style="margin-top: 12px; pointer-events: none;">
-              <i class="fas fa-bell"></i> Notificar-me
+            <div class="card__meta">
+              <span><i class="fas fa-code-branch"></i> v3.0.0</span>
+              <span><i class="fas fa-weight-hanging"></i> 400.02MB
+              <span><i class="fas fa-shield-alt"></i> Verificado</span>
+            </div>
+            <div class="card__actions">
+              <a href="https://github.com/lleonardo553/capcut-sem-bloqueio" target="_blank" rel="noopener noreferrer" class="btn btn--github" onclick="trackDownload('github')">
+                <i class="fab fa-github"></i> GitHub
+              </a>
+              <a href="https://mega.nz/file/PqhgBIiI#TY8xOUvoT2FInAnG6i27WWLHqLNoAUz0bzzoXx3Skwg" target="_blank" rel="noopener noreferrer" class="btn btn--download" onclick="trackDownload('mega')">
+                <i class="fas fa-cloud-download-alt"></i> Download
+              </a>
+            </div>
+            <div class="card__status">
+              <i class="fas fa-check-circle"></i> Download seguro • Sem bloqueio regional
             </div>
           </article>
         </div>
@@ -1348,7 +1348,6 @@
             </div>
             <p class="pix-qr-hint">
               <i class="fas fa-mobile-alt"></i> Escaneie com o app do seu banco
-Qualquer valor ajuda o projeto.
             </p>
             
             <!-- Copy and Paste -->
